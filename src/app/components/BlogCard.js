@@ -5,11 +5,19 @@ import { useRouter } from 'next/navigation';
 
 
 
-export default function BlogCard({ post }) {
+export default function BlogCard({ post,setClick }) {
   const router=useRouter()
   const handleDelete = async () => {
-    await fetch(`/api/post/${post._id}`, { method: 'DELETE' });
-  };
+    const data=await fetch(`http://localhost:4000/api/delete`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id:post._id})
+    });
+    if(data.ok){
+      setClick(true)
+    }
+    console.log(data,post._id)
+    }
   const handleClick = () => {
     // Navigate to the dynamic route programmatically
     router.push(`/id/${post._id}`);
