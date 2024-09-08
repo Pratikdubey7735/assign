@@ -1,13 +1,21 @@
 "use client"
 import Link from 'next/link';
 import Button from './Button';
+import { useRouter } from 'next/navigation';
 
-export default function Blogcard({ post }) {
+
+
+export default function BlogCard({ post }) {
+  const router=useRouter()
   const handleDelete = async () => {
-    await fetch(`/api/post/${post.id}`, { method: 'DELETE' });
+    await fetch(`/api/post/${post._id}`, { method: 'DELETE' });
+  };
+  const handleClick = () => {
+    // Navigate to the dynamic route programmatically
+    router.push(`/id/${post._id}`);
   };
 
-  console.log("post",post)
+  console.log("post at blog",post._id)
 
   return (
     <div className="relative shadow-lg rounded-lg overflow-hidden bg-white transition-shadow duration-300 ease-in-out hover:shadow-2xl border border-gray-200 m-4">
@@ -23,11 +31,11 @@ export default function Blogcard({ post }) {
           {post.content.substring(0, 100)}...
         </p>
         <div className="mt-4 flex justify-between items-center">
-          <Link href={`/id/${post.id}`} passHref>
-            <Button className="bg-gradient-to-r from-pink-500 to-red-500 text-white px-4 py-2 rounded-lg hover:from-blue-500 hover:to-blue-600 transition-all duration-200">
+          {/* <Link href={`/id/${post._id}`} passHref> */}
+            <Button onClick={handleClick} className="bg-gradient-to-r from-pink-500 to-red-500 text-white px-4 py-2 rounded-lg hover:from-blue-500 hover:to-blue-600 transition-all duration-200">
               View
             </Button>
-          </Link>
+          {/* </Link> */}
           <Button
             onClick={handleDelete}
             className="ml-2 bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200"

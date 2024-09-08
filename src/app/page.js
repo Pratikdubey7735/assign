@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from 'react';
-import BlogCard from './components/Blogcard';
+import BlogCard from './components/BlogCard.js';
 import Header from './components/Header';
 
 export default function Home() {
